@@ -33,19 +33,22 @@ public class GeradorDeLivroTecnico {
     };
     
     static public String prox() {
-        DadoJusto p = new DadoJusto(prefixos.length);
-        DadoJusto s = new DadoJusto(sufixos.length);
-        int[] pesos = {5,3,1};
-        DadoViciado d = new DadoViciado(pesos);
-        int sorteio = d.lancar();
-        if (sorteio == 0) {
-            return prefixos[p.lancar()] + GeradorDeAreaDeConhecimento.prox();
-        } else if (sorteio == 1){
-            return GeradorDeAreaDeConhecimento.prox();
-        } else {
-            return GeradorDeAreaDeConhecimento.prox() + sufixos[s.lancar()];
-        }        
+
+        ExpressaoGeradora exp0 = new ExpressaoGeradora(5);
+        exp0.colar(new ParteSorteada(prefixos));
+        exp0.colar(new ParteFixa(GeradorDeAreaDeConhecimento.prox()));
+        
+        ExpressaoGeradora exp1 = new ExpressaoGeradora(3);
+        exp1.colar(new ParteFixa(GeradorDeAreaDeConhecimento.prox()));
+        
+        ExpressaoGeradora exp2 = new ExpressaoGeradora(1);
+        exp2.colar(new ParteFixa(GeradorDeAreaDeConhecimento.prox()));
+        exp2.colar(new ParteSorteada(sufixos));
+        
+        ExpressaoGeradora[] opts = {exp0, exp1, exp2};
+        Gerador g = new Gerador(opts);
+        
+        return g.prox();
     }
-    
     
 }

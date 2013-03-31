@@ -14,6 +14,8 @@
  */
 package br.unesp.igce.lacunas;
 
+import java.util.Random;
+
 /**
  * Gerador de valores para criacao aleatoria de objetos e povoamento da base
  * de dados
@@ -96,69 +98,94 @@ public class GeradorDeNome {
     };
     
     static private String sobrenome() {
-        DadoJusto d = new DadoJusto(sobrenomes.length);
-        int[] sobrs = d.lancarVariasVezesSemRepetir(2);
-        int[] pesos = {15,20,20,45};
-        DadoViciado dd = new DadoViciado(pesos);
-        int sorteio = dd.lancar();
-        if (sorteio == 0) {
-            return sobrenomes[sobrs[0]];
-        } else if (sorteio == 1){
-            return "de " + sobrenomes[sobrs[0]] + " " + sobrenomes[sobrs[1]];
-        } else if (sorteio == 2) {
-            return sobrenomes[sobrs[0]] + " de " + sobrenomes[sobrs[1]];
-        } else {
-            return sobrenomes[sobrs[0]] + " " + sobrenomes[sobrs[1]];
-        }
+        
+        ExpressaoGeradora fulano = new ExpressaoGeradora(15);
+        fulano.colar(new ParteSorteada(sobrenomes));
+        
+        ExpressaoGeradora deFulanoTal = new ExpressaoGeradora(20);
+        deFulanoTal.colar(new ParteFixa("de "));
+        deFulanoTal.colar(new ParteSorteada(sobrenomes));
+        deFulanoTal.colar(new ParteFixa(" "));
+        deFulanoTal.colar(new ParteSorteada(sobrenomes));
+        
+        ExpressaoGeradora fulanoDeTal = new ExpressaoGeradora(20);
+        fulanoDeTal.colar(new ParteSorteada(sobrenomes));
+        fulanoDeTal.colar(new ParteFixa(" de "));
+        fulanoDeTal.colar(new ParteSorteada(sobrenomes));
+        
+        ExpressaoGeradora fulanoTal = new ExpressaoGeradora(45);
+        fulanoTal.colar(new ParteSorteada(sobrenomes));
+        fulanoTal.colar(new ParteFixa(" "));
+        fulanoTal.colar(new ParteSorteada(sobrenomes));
+        
+        ExpressaoGeradora[] opts = {fulano, deFulanoTal, fulanoDeTal, fulanoTal};
+        Gerador g = new Gerador(opts);
+        
+        return g.prox();
+
     }
     
     static public String proxMasc() {
-        DadoJusto d = new DadoJusto(prenomesMasc.length);
-        int nm = d.lancar();
-        int[] pesos = {5,5,90};
-        DadoViciado dd = new DadoViciado(pesos);
-        int sorteio = dd.lancar();
-        String resTemp;
-        if (sorteio == 0) {
-           resTemp = "Jose " + prenomesMasc[nm] + " " + sobrenome();
-        } else if (sorteio == 1){
-           resTemp = "Joao " + prenomesMasc[nm] + " " + sobrenome();
-        } else {
-           resTemp = prenomesMasc[nm] + " " + sobrenome();
-        }
-        int[] pesos2 = {4,4,7,85};
-        dd = new DadoViciado(pesos2);
-        sorteio = dd.lancar();
-        if (sorteio == 0) {
-            return resTemp + " Filho";
-        } else if (sorteio == 1) {
-            return resTemp + " Junior";
-        } else if (sorteio == 2) {
-            return resTemp + " Neto";
-        } else {
-            return resTemp;
-        }   
+        
+        ExpressaoGeradora joaoAlguem = new ExpressaoGeradora(5);
+        joaoAlguem.colar(new ParteFixa("Joao "));
+        joaoAlguem.colar(new ParteSorteada(prenomesMasc));
+        joaoAlguem.colar(new ParteFixa(" " + sobrenome()));
+        
+        ExpressaoGeradora zeAlguem = new ExpressaoGeradora(5);
+        zeAlguem.colar(new ParteFixa("Jose "));
+        zeAlguem.colar(new ParteSorteada(prenomesMasc));
+        zeAlguem.colar(new ParteFixa(" " + sobrenome()));
+
+        ExpressaoGeradora alguem = new ExpressaoGeradora(90);
+        alguem.colar(new ParteSorteada(prenomesMasc));
+        alguem.colar(new ParteFixa(" " + sobrenome()));
+        
+        ExpressaoGeradora[] opts = {joaoAlguem, zeAlguem, alguem};
+        Gerador g1 = new Gerador(opts);
+        
+        ExpressaoGeradora maneFilho = new ExpressaoGeradora(4);
+        maneFilho.colar(new ParteFixa(" Filho"));
+        
+        ExpressaoGeradora maneJunior = new ExpressaoGeradora(4);
+        maneJunior.colar(new ParteFixa(" Junior"));
+        
+        ExpressaoGeradora maneNeto = new ExpressaoGeradora(7);
+        maneNeto.colar(new ParteFixa(" Neto"));
+        
+        ExpressaoGeradora mane = new ExpressaoGeradora(85);
+        mane.colar(new ParteFixa(""));
+        
+        ExpressaoGeradora[] opts2 = {maneFilho, maneJunior, maneNeto, mane};
+        Gerador g2 = new Gerador(opts2);
+        
+        return g1.prox() + g2.prox();
     }
     
     static public String proxFem() {
-        DadoJusto d = new DadoJusto(prenomesFem.length);
-        int nm = d.lancar();
-        int[] pesos = {5,5,90};
-        DadoViciado dd = new DadoViciado(pesos);
-        int sorteio = dd.lancar();
-        if (sorteio == 0) {
-           return "Ana " + prenomesFem[nm] + " " + sobrenome();
-        } else if (sorteio == 1){
-           return "Maria " + prenomesFem[nm] + " " + sobrenome();
-        } else {
-           return prenomesFem[nm] + " " + sobrenome();
-        }
+        
+        ExpressaoGeradora anaAlguem = new ExpressaoGeradora(5);
+        anaAlguem.colar(new ParteFixa("Ana "));
+        anaAlguem.colar(new ParteSorteada(prenomesFem));
+        anaAlguem.colar(new ParteFixa(" " + sobrenome()));
+        
+        ExpressaoGeradora mariaAlguem = new ExpressaoGeradora(5);
+        mariaAlguem.colar(new ParteFixa("Maria "));
+        mariaAlguem.colar(new ParteSorteada(prenomesFem));
+        mariaAlguem.colar(new ParteFixa(" " + sobrenome()));
+
+        ExpressaoGeradora alguem = new ExpressaoGeradora(90);
+        alguem.colar(new ParteSorteada(prenomesFem));
+        alguem.colar(new ParteFixa(" " + sobrenome()));
+        
+        ExpressaoGeradora[] opts = {anaAlguem, mariaAlguem, alguem};
+        Gerador g = new Gerador(opts);
+        return g.prox();
     }
     
     static public String prox() {
-        DadoJusto d = new DadoJusto(2);
-        int srt = d.lancar();
-        if (srt == 0) {
+        Random g = new Random();
+        if (g.nextBoolean()) {
             return proxFem();
         } else {
             return proxMasc();

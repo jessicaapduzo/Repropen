@@ -49,37 +49,38 @@ public class GeradorDeAreaDeConhecimento {
         " Nuclear",
         " Relativista"
     };
-            
-    static public String prox() {
-        DadoJusto p = new DadoJusto(prefixos.length);
-        DadoJusto r = new DadoJusto(radicais.length);
-        DadoJusto s = new DadoJusto(sufixos.length);
-        DadoJusto a = new DadoJusto(adjetivos.length);
-        int[] pesos = {5,2,6};
-        DadoViciado d = new DadoViciado(pesos);
-        int sorteio = d.lancar();
-        String resTemp;
-        if (sorteio == 0) {
-            resTemp = prefixos[p.lancar()] + radicais[r.lancar()] + "a";
-        } else if (sorteio == 1){
-            resTemp = radicais[r.lancar()] + "a";
-            resTemp = resTemp.substring(0, 1).toUpperCase() + 
-                    resTemp.substring(1, resTemp.length());
-        } else {
-            resTemp = radicais[r.lancar()] + sufixos[s.lancar()];
-            resTemp = resTemp.substring(0, 1).toUpperCase() + 
-                    resTemp.substring(1, resTemp.length());
-        }
-        int[] pesos2 = {2,3};
-        d = new DadoViciado(pesos2);
-        sorteio = d.lancar();
-        if (sorteio == 0) {
-            return resTemp;
-        } else {
-            return resTemp + adjetivos[a.lancar()];
-        }
+    
+    static public String prox () {
         
+        ExpressaoGeradora exp0 = new ExpressaoGeradora(5);
+        exp0.colar(new ParteSorteada(prefixos));
+        exp0.colar(new ParteSorteada(radicais));
+        exp0.colar(new ParteFixa("a"));
+              
+        ExpressaoGeradora exp1 = new ExpressaoGeradora(2);
+        exp1.colar(new ParteSorteada(radicais));
+        exp1.colar(new ParteFixa("a"));
+        
+        ExpressaoGeradora exp2 = new ExpressaoGeradora(6);
+        exp2.colar(new ParteSorteada(radicais));
+        exp2.colar(new ParteSorteada(sufixos));
+        
+        ExpressaoGeradora[] p1 = {exp0, exp1, exp2};
+        Gerador g1 = new Gerador(p1);
+        String parte1 = g1.prox();
+        parte1 = parte1.substring(0, 1).toUpperCase() + 
+                parte1.substring(1, parte1.length());
+        
+        ExpressaoGeradora exp3 = new ExpressaoGeradora(2);
+        exp3.colar(new ParteFixa(""));
+        
+        ExpressaoGeradora exp4 = new ExpressaoGeradora(3);
+        exp4.colar(new ParteSorteada(adjetivos));
+        
+        ExpressaoGeradora[] p2 = {exp3, exp4};
+        Gerador g2 = new Gerador(p2);
+        
+        return parte1 + g2.prox();
     }
     
-
 }

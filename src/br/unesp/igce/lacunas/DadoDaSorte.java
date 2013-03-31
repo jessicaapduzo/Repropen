@@ -15,17 +15,22 @@
 package br.unesp.igce.lacunas;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
- * 
+ * Gerador de valores aleatorios com chances iguais
  * 
  * @author orlando
  */
-public abstract class DadoDaSorte {
+public class DadoDaSorte {
+    private Random g = new Random();
+    private int lados;
     
-    public abstract int lancar();
+    public DadoDaSorte(int lados){
+        this.lados = lados;
+    }
     
-    protected static int[] extrairArray(ArrayList<Integer> al) {
+    private static int[] extrairArray(ArrayList<Integer> al) {
         Object[] ar = al.toArray();
         int[] res = new int[ar.length];
         for (int i = 0; i < ar.length; i++) {
@@ -34,18 +39,28 @@ public abstract class DadoDaSorte {
         return res;
     }
     
-    /**
-     * Lanca um dado varias vezes
-     * O numero de vezes tem que ser menor ou igual ao numero de lados.
-     * @param vezes
-     * @return 
-     */
+    public int lancar() {
+        return g.nextInt(lados);
+    }
+    
     public int[] lancarVariasVezes(int vezes) {
         int lance = lancar();
         ArrayList<Integer> lances = new ArrayList<Integer> ();
         lances.add(lance);
         for (int i = 0; i < vezes - 1; i++) {
             lance = lancar();
+            lances.add(lance);
+        }
+        return extrairArray(lances);
+    }
+    
+    public int[] lancarVariasVezesSemRepetir(int vezes) {
+        int lance = lancar();
+        ArrayList<Integer> lances = new ArrayList<Integer> ();
+        lances.add(lance);
+        for (int i = 0; i < vezes - 1; i++) {
+            while(lances.contains(new Integer(lance)))
+                lance = lancar();
             lances.add(lance);
         }
         return extrairArray(lances);

@@ -14,56 +14,51 @@
  */
 package br.unesp.igce.lacunas;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * Dado que realiza sorteio com base em distribuicao estatistica
+ *
  * @author orlando
  */
-public class DadoViciado extends DadoDaSorte {
-    private Random g = new Random();
+public class Gerador {
+    private ExpressaoGeradora[] cartucho;
     private int[] distribuicao;
+    private Random g = new Random();
+
     
-    public DadoViciado (int[] pesos){
-        distribuicao = new int[pesos.length - 1];
+    public Gerador(ExpressaoGeradora[] cartucho){
+        this.cartucho = cartucho;
+        
+        distribuicao = new int[cartucho.length - 1];
         int total = 0;
-        for (int i = 0; i < pesos.length; i++) 
-            if (pesos[i] > 0)
-                total += pesos[i];
+        for (int i = 0; i < cartucho.length; i++) 
+            if (cartucho[i].peso > 0)
+                total += cartucho[i].peso;
         if (total == 0)
             System.err.println("Pesos devem ser positivos");
         else {
             int acumula = 0;
-            for (int i = 0; i < pesos.length - 1 ; i++) {
-                acumula += pesos[i]*100/total;
+            for (int i = 0; i < cartucho.length - 1 ; i++) {
+                acumula += cartucho[i].peso*100/total;
                 distribuicao[i] = acumula;
             }
         }
+
     }
     
-    /**
-     * Sorteia um valor de acordo com a distribuicao dos pesos
-     * @return
-     */
-    @Override
-   public int lancar() {
+    public String prox() {
         int sorteio = g.nextInt(100);
-        int lado;
-        for (lado = 0; lado < distribuicao.length; lado++)
-            if (sorteio < distribuicao[lado]) 
+        int iCaso;
+        for (iCaso = 0; iCaso < distribuicao.length; iCaso++)
+            if (sorteio < distribuicao[iCaso]) 
                 break;
-        return lado;
-    }
-    
-     public static void main(String[] args) {
-        int[] pesos = {1,2,2,5};
-        DadoViciado dado = new DadoViciado(pesos);
-        int[] a = dado.lancarVariasVezes(7);
-        for (int i = 0; i < a.length; i++) {
-            System.out.println(a[i]);
+        ExpressaoGeradora caso = cartucho[iCaso];
+        
+        String mtg = "";
+        ParteDeExpressao[] partes = caso.toArray();
+        for (int i = 0; i < partes.length; i++) {
+            mtg = mtg + partes[i].get();
         }
+        return mtg;
     }
-
-
 }

@@ -21,31 +21,30 @@ package br.unesp.igce.lacunas;
 public class GeradorDeTexto {
     
     private static String[] frases = {
-        "Lorem ipsum dolor sit amet, consectetur adipisicing elit, "
-            + "sed do eiusmod tempor incididunt ut labore et dolore "
-            + "magna aliqua.",
-        "Ut enim ad minim veniam, quis nostrud exercitation ullamco "
-            + "laboris nisi ut aliquip ex ea commodo consequat.",
-        "Duis aute irure dolor in reprehenderit in voluptate velit "
-            + "esse cillum dolore eu fugiat nulla pariatur.",
-        "Excepteur sint occaecat cupidatat non proident, sunt in culpa "
-            + "qui officia deserunt mollit anim id est laborum.",
-        "Glou glou glou glou gloy glu gliu glii glii glio.",
-        "Tupe tupe tupe tupi tupu tupa tepe tepe tem glem ga.",
-        "Tranu trini trino tren terere tem dudu dada tapara tam.",
+        "Raspatic donovis tendendoi uriatam, balaburte samuabo. ",
+        "Xisvipique taque lene lodovocum perculare, troivante tate. ",
+        "Doscopurum virtuane, xapacante vequetrigue, uluarau barbante. ",
+        "Rostro povich, violante, cello dulce, dulce cello, cai ramevo. ",
         "Vontonoi caractamparam duno treno taktananakar zem tem.",
         "Divorgenes tom divogenes, caramacaras tantaram zulu data.",
-        "Cormicoides som velotes, tunukuram adjanas boroloreim."
+        "Cormicoides som velotes, tunukuram adjanas boroloreim.",
+        "Dorbi ante, mula prakti, olerante sandalos olentes, gor dal. ",
+        "Zizibue ratanique olereu devagar zeu, mar tinho davi la.",
+        "Ulti dor lacio, bilacquidas par nas nismok do spok. ",
+        "Trenk trankou. " ,
+        "Du di vindas. ",
+        "Entonio vader, sky muolqui, chorche lutas isperdeu. ",
+        "More nomore, diave rum, dia tia tuntamon, arriribes divison. "
     };
     
     public static String proxFrase() {
-        DadoJusto f = new DadoJusto(frases.length);
+        DadoDaSorte f = new DadoDaSorte(frases.length);
         return frases[f.lancar()];
     }
     
     public static String proxParagrafo () {
-        DadoJusto f = new DadoJusto(frases.length);
-        DadoJusto q = new DadoJusto(3);
+        DadoDaSorte f = new DadoDaSorte(frases.length);
+        DadoDaSorte q = new DadoDaSorte(3);
         int i = 3 + q.lancar();
         int[] fr = f.lancarVariasVezesSemRepetir(i);
         String res = "";
@@ -63,8 +62,5 @@ public class GeradorDeTexto {
     public static String proxTresParagrafos () {
         return proxDoisParagrafos() + "\n" + proxParagrafo();
     }
-
-    public static void main(String[] args) {
-        System.out.println(proxTresParagrafos());
-    }
+    
 }
