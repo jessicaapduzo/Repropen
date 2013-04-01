@@ -15,10 +15,13 @@
 package br.unesp.igce.lacunas;
 
 /**
- *
+ * gera um titulo de ficcao para filme ou livro.
+ * 
+ * duas partes: um nome feminino e um adjetivo no estilo western.
+ * 
  * @author orlando
  */
-public class GeradorDeFiccao {
+public class GeradorDeTituloDeFiccao {
     
     private static String[] nomes = {
         "Fuga ",
@@ -38,6 +41,9 @@ public class GeradorDeFiccao {
         "do Heroi"
     };
     
+    /**
+     * @return um nome feminino seguido de adjetivo no estilo western.
+     */
     public static String prox() {
         
         ExpressaoGeradora exp = new ExpressaoGeradora(1);

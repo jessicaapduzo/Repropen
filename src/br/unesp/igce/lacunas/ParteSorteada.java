@@ -17,7 +17,10 @@ package br.unesp.igce.lacunas;
 import java.util.Random;
 
 /**
- *
+ * parte de uma expressao geradora que e' sorteada aleatoriamente.
+ * 
+ * e' construida com um conjunto de valores do qual o resultado e' sorteado.
+ * 
  * @author orlando
  */
 public class ParteSorteada implements ParteDeExpressao {
@@ -28,7 +31,7 @@ public class ParteSorteada implements ParteDeExpressao {
     }
     
     @Override
-    public String get(){
+    public String gerar(){
         Random g = new Random();
         int sorteio = g.nextInt(roleta.length);
         return roleta[sorteio];

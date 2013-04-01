@@ -15,11 +15,16 @@
 package br.unesp.igce.lacunas;
 
 /**
- *
+ * compoe uma expressao geradora.
+ * 
  * @author orlando
  */
 public interface ParteDeExpressao {
     
-    public String get();
+    /**
+     * gera a string definida pela parte.
+     * @return string definida pela parte.
+     */
+    public String gerar();
 
 }

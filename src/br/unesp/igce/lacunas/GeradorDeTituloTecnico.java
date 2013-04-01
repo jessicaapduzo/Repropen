@@ -15,10 +15,16 @@
 package br.unesp.igce.lacunas;
 
 /**
- *
+ * gera titulo de livro tecnico.
+ * 
+ * baseia-se no gerador de area de conhecimento.
+ * 
+ * gera tres opcoes de string: com prefixo ("Manual de ", etc.), simples ou
+ * com sufixo (" Passo a Passo", etc.).
+ * 
  * @author orlando
  */
-public class GeradorDeLivroTecnico {
+public class GeradorDeTituloTecnico {
     
     private static String[] prefixos = {
         "Manual de ",
@@ -32,6 +38,9 @@ public class GeradorDeLivroTecnico {
         " em 24 horas"
     };
     
+    /**
+     * @return tres opcoes de expressao: c/ pref, simples, c/ suf
+     */
     static public String prox() {
 
         ExpressaoGeradora exp0 = new ExpressaoGeradora(5);

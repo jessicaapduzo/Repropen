@@ -15,7 +15,13 @@
 package br.unesp.igce.lacunas;
 
 /**
- *
+ * gera uma area de conhecimento ficticia.
+ * 
+ * os termos gerados nao existem, mas fazem mencao aos equivalentes existentes.
+ * 
+ * As opcoes geradas sao: prefixo + radical, prefixo + radical + adjetivo,
+ * radical, radical + adjetivo, radical + sufixo, radical + sufixo + adjetivo
+ * 
  * @author orlando
  */
 public class GeradorDeAreaDeConhecimento {
@@ -25,7 +31,8 @@ public class GeradorDeAreaDeConhecimento {
        "Meta",
        "Metalo",
        "Neo",
-       "Proto"
+       "Proto",
+       "Ptero"
     };
 
     static private String[] radicais = {
@@ -33,6 +40,11 @@ public class GeradorDeAreaDeConhecimento {
        "economi",
        "fisic",
        "quimic",
+       "solucionatic",
+       "informatic",
+       "quantic",
+       "cienci",
+       "gastronomi"
     };
     
     static private String[] sufixos = {
@@ -47,9 +59,13 @@ public class GeradorDeAreaDeConhecimento {
         " Neanderthal",
         " Linear",
         " Nuclear",
-        " Relativista"
+        " Relativista",
+        " Moderna"
     };
     
+    /**
+     * @return [prefixo +]  radical [+ sufixo] [+ adjetivo]
+     */
     static public String prox () {
         
         ExpressaoGeradora exp0 = new ExpressaoGeradora(5);

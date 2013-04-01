@@ -18,7 +18,13 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * Gerador de valores aleatorios com chances iguais
+ * gerador de valores aleatorios com chances iguais.
+ * 
+ * possui um numero fixo de lados, definido na construcao.
+ * 
+ * permite sortear um valor apenas, ou um conjunto, com repeticoes ou nao.
+ * 
+ * a faixa de valores vai de zero ao antecessor do numero de lados.
  * 
  * @author orlando
  */
@@ -39,10 +45,19 @@ public class DadoDaSorte {
         return res;
     }
     
+    /**
+     * sorteia um valor unico.
+     * @return inteiro entre 0 e antecessor(lados)
+     */
     public int lancar() {
         return g.nextInt(lados);
     }
     
+    /**
+     * produz um conjunto de valores sorteados.
+     * @param vezes deve ser estritamente positivo.
+     * @return valores, possivelmente com repeticoes.
+     */
     public int[] lancarVariasVezes(int vezes) {
         int lance = lancar();
         ArrayList<Integer> lances = new ArrayList<Integer> ();
@@ -54,6 +69,11 @@ public class DadoDaSorte {
         return extrairArray(lances);
     }
     
+    /**
+     * produz um conjunto de valores sem repeticoes.
+     * @param vezes deve ser estritamente positivo e nunca maior que o numero de lados
+     * @return valores sem repeticoes
+     */
     public int[] lancarVariasVezesSemRepetir(int vezes) {
         int lance = lancar();
         ArrayList<Integer> lances = new ArrayList<Integer> ();

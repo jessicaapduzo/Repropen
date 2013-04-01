@@ -74,6 +74,7 @@ public class GeradorDeNome {
     static private String[] sobrenomes = {
         "Albuquerque",
         "Alcantara",
+        "Araujo",
         "Bonifacio",
         "Calisto",
         "Carneiro",
@@ -89,6 +90,7 @@ public class GeradorDeNome {
         "Monticelli",
         "Nobre",
         "Peixoto",
+        "Pinho",
         "Viotti",
         "Silva",
         "Souza",

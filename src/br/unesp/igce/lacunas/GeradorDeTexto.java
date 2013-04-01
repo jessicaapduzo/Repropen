@@ -15,7 +15,13 @@
 package br.unesp.igce.lacunas;
 
 /**
- *
+ * gera texto em uma lingua ficticia.
+ * 
+ * as palavras sao inventadas.
+ * 
+ * permite gerar uma frase, um paragrafo com numero aleatorio de frases,
+ * dois ou tres paragrafos da mesma forma.
+ * 
  * @author orlando
  */
 public class GeradorDeTexto {
@@ -42,6 +48,9 @@ public class GeradorDeTexto {
         return frases[f.lancar()];
     }
     
+    /**
+     * @return numero aleatorio de frases.
+     */
     public static String proxParagrafo () {
         DadoDaSorte f = new DadoDaSorte(frases.length);
         DadoDaSorte q = new DadoDaSorte(3);

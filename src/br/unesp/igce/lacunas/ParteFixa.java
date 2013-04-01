@@ -15,7 +15,8 @@
 package br.unesp.igce.lacunas;
 
 /**
- *
+ * parte de uma expressao geradora que gera sempre a mesma string.
+ * 
  * @author orlando
  */
 public class ParteFixa implements ParteDeExpressao {
@@ -26,7 +27,7 @@ public class ParteFixa implements ParteDeExpressao {
     }
     
     @Override
-    public String get() {
+    public String gerar() {
         return texto;
     }
 
